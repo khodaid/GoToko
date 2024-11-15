@@ -24,6 +24,18 @@ func main() {
 	userRepository := User.NewRepository(db)
 	userService := User.NewService(userRepository)
 
+	input := User.LoginInput{
+		Email:    "",
+		Password: "",
+	}
+	user, err := userService.Login(input)
+
+	if err != nil {
+		fmt.Println("Terjadi Kesalahan")
+		fmt.Println(err.Error())
+	}
+	fmt.Println(user)
+
 	userHandle := Handler.NewUserHandler(userService)
 
 	router := gin.Default()
